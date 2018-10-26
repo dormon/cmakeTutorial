@@ -1,0 +1,72 @@
+\setbeamercolor{background canvas}{bg=fitblue}
+\begin{frame}
+\frametitle{Úvod}
+\begin{center}
+\Huge {\color{white}Úvod}
+\end{center}
+\end{frame}
+\setbeamercolor{background canvas}{bg=white}
+
+\begin{frame}
+\frametitle{Zdroje informací}
+	\begin{itemize}
+  \item \url{https://cmake.org/cmake/help/v3.13/}
+  \item \url{https://www.youtube.com/watch?v=bsXLMQ6WgIk}
+  \item \url{https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Proč použít?}
+	\begin{itemize}
+	\item Multiplatformní
+  \item Usnadňuje práci (závislosti, nastavení, ...)
+  \item Standardizuje sestavování
+  \item Testy, balíčky, uživatelské skripty, ...
+  \item Out of source building, ...
+	\end{itemize}
+	\begin{figure}[h]
+	\includegraphics[width=2cm,keepaspectratio]{pics/introduction/Cmake}
+	\includegraphics[width=2cm,keepaspectratio]{pics/introduction/Tux}
+	\includegraphics[width=2cm,keepaspectratio]{pics/introduction/Windows}
+	\includegraphics[width=2cm,keepaspectratio]{pics/introduction/Apple}
+	\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Jak nainstalovat pod Linuxem?}
+	\begin{enumerate}
+    \item Odinstalovat všechny starší verze (najít třeba pomocí \$ \textbf{which} cmake)
+    \item Stáhnout nejnovější binárni tar.gr verzi z \url{https://cmake.org/download/}
+    \item Překopírovat obsah rozbaleného adresáře do /usr
+	\end{enumerate}
+{\scriptsize
+\begin{Verbatim}[commandchars=\\\{\}]
+$ \textbf{wget} https://cmake.org/files/v3.13/cmake-3.13.0-rc1-Linux-x86_64.tar.gz
+$ \textbf{tar} xf cmake-3.13.0-rc1-Linux-x86_64.tar.gz
+$ \textbf{cd} cmake-3.13.0-rc1-Linux-x86_64
+$ \textbf{sudo cp} -r * /usr
+$ \textbf{cmake} --version
+cmake version 3.13.0-rc1
+\end{Verbatim}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Jak použít?}
+{\scriptsize
+	\begin{enumerate}
+	\item cmake-gui / ccmake
+	\item Nastavit místo, kde se sestavuje a kde je složka s CMakeLists.txt
+	\item Configure
+	\item Vyřešit závislosti - například nastavit SDL2\_DIR na složku obsahující SDL2Config.cmake
+  \item Generate - vygenerovat makefile / sln file
+  \item make / pustit MSVS
+	\end{enumerate}
+}
+	\begin{figure}[h]
+	\includegraphics[width=8cm,keepaspectratio]{pics/introduction/cmake-gui}
+	\end{figure}
+\end{frame}
+
+

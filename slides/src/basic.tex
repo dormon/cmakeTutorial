@@ -1,0 +1,226 @@
+\setbeamercolor{background canvas}{bg=fitblue}
+\begin{frame}
+\frametitle{Základní návod}
+\begin{center}
+\Huge {\color{white}Základní návod}
+\end{center}
+\end{frame}
+\setbeamercolor{background canvas}{bg=white}
+
+\begin{frame}[fragile]
+\frametitle{Základní návod}
+	\begin{itemize}
+	\item Složka obsahující CMakeLists.txt je složka, kterou je možné sestavit
+  \item Hierarchie složek
+  \item CMake sám o sobě nesestavuje aplikace/knihovny
+  \item CMake slouží pro generování makefile / sln souborů
+  \item CMake obsahuje aplikace \textbf{cmake cmake-gui ccmake ctest cpack}
+  \item \textbf{cmake} - rovnou vygeneruje makefile (parametery můžou ovlivnit generování
+  \item \textbf{cmake-gui} / \textbf{ccmake} - uživatelské nastavní parametrů a následné vygenerování makefile
+  \item \textbf{ctest} - pro spouštění testů (unit tests, ...)
+  \item \textbf{cpack} - pro vytvoření balíčků (*.deb, ...)
+	\end{itemize}
+\end{frame}
+
+\setbeamercolor{background canvas}{bg=fitblue}
+\begin{frame}
+\frametitle{Prázdný CMake}
+\begin{center}
+\Huge {\color{white}Prázdný CMake}
+\end{center}
+\end{frame}
+\setbeamercolor{background canvas}{bg=white}
+
+\begin{frame}[fragile]
+\frametitle{Prázdný CMakeLists.txt}
+CMakeLists.txt:
+\inputminted[frame=lines]{cmake}{../examples/00-EmptyCMake/CMakeLists.txt}
+\end{frame}
+
+\setbeamercolor{background canvas}{bg=fitblue}
+\begin{frame}
+\frametitle{HelloWorld CMake}
+\begin{center}
+\Huge {\color{white}HelloWorld CMake}
+\end{center}
+\end{frame}
+\setbeamercolor{background canvas}{bg=white}
+
+\begin{frame}[fragile]
+\frametitle{HelloWorld CMakeLists.txt}
+CMakeLists.txt:
+\inputminted[frame=lines]{cmake}{../examples/01-HellowWorld/CMakeLists.txt}
+main.cpp:
+\inputminted[frame=lines]{c++}{../examples/01-HellowWorld/main.cpp}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{HelloWorld Sestavení}
+CMake umožňuje out-of-source building - vytváření *.o souborů mimo *.cpp soubory.
+{\small
+\begin{Verbatim}[commandchars=\\\{\}]
+$ \textbf{ls}
+CMakeLists.txt main.cpp
+$ \textbf{mkdir} build
+$ \textbf{cd} build
+$ \textbf{cmake} ..
+$ \textbf{ls}
+CMakeCache.txt  \textcolor{blue}{CMakeFiles}  cmake_install.cmake  Makefile
+$ \textbf{make}
+$ \textbf{ls}
+CMakeCache.txt  \textcolor{blue}{CMakeFiles}  cmake_install.cmake  \textcolor{orange}{HelloWorld}  Makefile
+\end{Verbatim}
+}
+\end{frame}
+
+\setbeamercolor{background canvas}{bg=fitblue}
+\begin{frame}
+\frametitle{Include Directories}
+\begin{center}
+\Huge {\color{white}Include Directories}
+\end{center}
+\end{frame}
+\setbeamercolor{background canvas}{bg=white}
+
+\begin{frame}[fragile]
+\frametitle{IncludeDirectories CMakeLists.txt}
+  CMakeLists.txt:
+  {\scriptsize \inputminted[frame=lines]{cmake}{../examples/02-IncludeDirectories/CMakeLists.txt}}
+  src/main.cpp:
+  {\scriptsize \inputminted[frame=lines]{c++}{../examples/02-IncludeDirectories/src/main.cpp}}
+  include/header.h:
+  {\scriptsize \inputminted[frame=lines]{c++}{../examples/02-IncludeDirectories/include/header.h}}
+\end{frame}
+
+\setbeamercolor{background canvas}{bg=fitblue}
+\begin{frame}
+\frametitle{Compile Definitions}
+\begin{center}
+\Huge {\color{white}Compile Definitions}
+\end{center}
+\end{frame}
+\setbeamercolor{background canvas}{bg=white}
+
+\begin{frame}[fragile]
+\frametitle{Compile Definitions}
+  CMakeLists.txt:
+  {\scriptsize \inputminted[frame=lines]{cmake}{../examples/03-CompileDefinitions/CMakeLists.txt}}
+  src/main.cpp:
+  {\scriptsize \inputminted[frame=lines]{c++}{../examples/03-CompileDefinitions/main.cpp}}
+\end{frame}
+
+\setbeamercolor{background canvas}{bg=fitblue}
+\begin{frame}
+\frametitle{Sestavení a instalace knihovny třetí strany}
+\begin{center}
+\Huge {\color{white}Sestavení a instalace knihovny třetí strany}
+\end{center}
+\end{frame}
+\setbeamercolor{background canvas}{bg=white}
+
+\begin{frame}[fragile]
+\frametitle{Sestavení a instalace knihovny třetí strany}
+\url{https://github.com/dormon/Vars}
+{\scriptsize
+\begin{Verbatim}[commandchars=\\\{\}]
+$ \textbf{tree}
+\textcolor{blue}{.}
+|
+|-- CMakeLists.txt
+|-- main.cpp
+|-- \textcolor{blue}{Vars}     \textcolor{gray}{# extern library}
+    |-- CMakeLists.txt
+    |-- README.md
+    |-- \textcolor{blue}{src}
+    |   |-- \textcolor{blue}{Vars}
+    |       |-- Fwd.h
+    |       |-- Resource.cpp
+    |       |-- Resource.h
+    |       |-- Vars.cpp
+    |       |-- Vars.h
+    |       |-- VarsImpl.cpp
+    |       |-- VarsImpl.h
+    |-- \textcolor{blue}{tests}
+        |-- catch.hpp
+        |-- CMakeLists.txt
+        |-- tests.cpp
+\end{Verbatim}
+}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sestavení a instalace knihovny třetí strany}
+{\small
+\begin{Verbatim}[commandchars=\\\{\}]
+$ \textbf{mkdir} varsBuild
+$ \textbf{mkdir} install
+$ \textcolor{gray}{# vygenerování makefile}
+$ \textcolor{gray}{# -H složka s CMakeLists.txt}
+$ \textcolor{gray}{# -B složka pro build}
+$ \textcolor{gray}{# -D nastavení parameteru (proměnné)}
+$ \textcolor{gray}{# \textcolor{red}{CMAKE_INSTALL_PREFIX} místo pro instalaci knihovny}
+$ \textbf{cmake} -H\textcolor{blue}{Vars} -B\textcolor{blue}{varsBuild/} -D\textcolor{red}{CMAKE_INSTALL_PREFIX}=\textcolor{blue}{install/}
+$ \textcolor{gray}{# spuštění překladu a instalace}
+$ \textcolor{gray}{# --build cesta k build složce}
+$ \textcolor{gray}{# --target název cíle, který se bude sestavovat}
+$ \textcolor{gray}{# pokud cíl závisí na jiných, nejprve se sestaví ty}
+$ \textbf{cmake} --build \textcolor{blue}{varsBuild/} --target install
+\end{Verbatim}
+}  
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sestavení a instalace knihovny třetí strany}
+Po instalaci vypadá složka s nainstalovanou knihovnou takto:
+\begin{Verbatim}[commandchars=\\\{\}]
+$ \textbf{tree} \textcolor{blue}{install/}
+|-- \textcolor{blue}{include}
+|   |-- \textcolor{blue}{Vars}
+|       |-- Fwd.h
+|       |-- Resource.h
+|       |-- vars_export.h
+|       |-- Vars.h
+|-- \textcolor{blue}{lib}
+    |-- \textcolor{blue}{cmake}
+    |   |-- \textcolor{blue}{Vars}
+    |       |-- VarsConfig.cmake
+    |       |-- VarsConfigVersion.cmake
+    |       |-- VarsTargets.cmake
+    |       |-- VarsTargets-noconfig.cmake
+    |-- libVars.a
+\end{Verbatim}
+\end{frame}
+
+\setbeamercolor{background canvas}{bg=fitblue}
+\begin{frame}
+\frametitle{Využití nainstalované knihovny}
+\begin{center}
+\Huge {\color{white}Využití nainstalované knihovny}
+\end{center}
+\end{frame}
+\setbeamercolor{background canvas}{bg=white}
+
+\begin{frame}[fragile]
+\frametitle{Využití nainstalované knihovny}
+main.cpp:
+{\small \inputminted[frame=lines]{c++}{../examples/04-BuildingAndInstalling/main.cpp}}
+CMakeLists.txt:
+{\small \inputminted[frame=lines]{cmake}{../examples/04-BuildingAndInstalling/CMakeLists.txt}}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Využití nainstalované knihovny}
+\begin{Verbatim}[commandchars=\\\{\}]
+$ \textbf{ls}
+CMakeLists.txt  \textcolor{blue}{install}  main.cpp  \textcolor{blue}{Vars}  \textcolor{blue}{varsBuild}
+$ \textbf{mkdir} build
+$ \textcolor{gray}{# vygenerování makefile pro aplikaci}
+$ \textcolor{gray}{# využívající knihovnu Vars}
+$ \textcolor{gray}{# \textcolor{red}{Vars_DIR} je proměnná, která by měla ukazovat na}
+$ \textcolor{gray}{# složku, obsahující soubor VarsConfig.cmake}
+$ \textbf{cmake} -H\textcolor{blue}{.} -B\textcolor{blue}{build/} -D\textcolor{red}{Vars_DIR}=\textcolor{blue}{install/lib/cmake/Vars}
+$ \textcolor{gray}{# sestavení aplikace}
+$ \textbf{cmake} --build \textcolor{blue}{build/}
+\end{Verbatim}
+\end{frame}
+

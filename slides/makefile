@@ -12,6 +12,7 @@ introductionImages = \
 
 all: ${introductionImages}
 	pdflatex -shell-escape $(SRCDIR)$(TARGET)
+	pdflatex -shell-escape $(SRCDIR)$(TARGET)
 	#bibtex $(TARGET)
 	#pdflatex -shell-escape $(TARGET)
 	#pdflatex -shell-escape $(TARGET)
